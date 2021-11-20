@@ -1,12 +1,14 @@
 {
     "name": "codeigniter4/appstarter",
     "type": "project",
-    "description": "CodeIgniter4 starter app",
+    "description": "Food @ maestro02",
     "homepage": "https://codeigniter.com",
     "license": "MIT",
     "require": {
         "php": "^7.3 || ^8.0",
-        "codeigniter4/framework": "^4"
+        "codeigniter4/framework": "^4",
+        "ext-json": "*",
+        "ext-curl": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9",
