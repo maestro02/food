@@ -5,11 +5,15 @@ namespace App\Controllers;
 use App\Models\MenuModel;
 use App\Models\OrderModel;
 use App\Models\PersonalModel;
+use ReflectionException;
+use Smalot\PdfParser\Parser;
 
 class FoodController extends BaseController
 {
-	public function index()
+	public function index():void
 	{
+		$this->getMenu();
+
 		helper(['form', 'url']);
 		if ($this->request->getMethod() === 'post') {
 			$order = new OrderModel();
@@ -17,17 +21,14 @@ class FoodController extends BaseController
 				'person' => $this->request->getPost('person'),
 				'food' => $this->request->getPost('food'),
 				'drink' => $this->request->getPost('drink'),
-				'order_date' => date('d.m.Y')
+				'order_date' => date('Y-m-d')
 			];
-			$order->save($o);
 
 			if ($order->find($o['person'])) {
 				$order->save($o);
 			} else {
 				$order->insert($o);
 			}
-
-			$data['o'] = $o;
 
 			$this->send_confirmation($o);
 
@@ -41,7 +42,7 @@ class FoodController extends BaseController
 		}
 	}
 
-	public function send_confirmation($data)
+	public function send_confirmation($data):void
 	{
 		$person = new PersonalModel();
 		$food = new MenuModel();
@@ -68,6 +69,8 @@ class FoodController extends BaseController
 		$header .= 'Content-Type: text/html; charset=UTF-8' . "\r\n";
 		$header .= 'MIME-Version: 1.0' . "\r\n";
 
+		// ToDo: Table design in E-Mail
+
 		$body = '<html lang="de" ><body ><div >Hallo '.$person->first_name.'</div ><br ><div >
 				Deine Bestellung für '.date('d.m.Y').' ist erfolgreich gespeichert und wird dem Dispatcher via IT-Bern-Mail
 				gemeldet.</div >
@@ -85,7 +88,63 @@ class FoodController extends BaseController
 
 		mail($to, $subject, $body, $header);
 
-		//mail('raphael.suter@maestro02.ch', 'Test', 'Testmail')
+
 
 	}
+
+	private function getMenu():void
+	{
+		$menu = new MenuModel();
+
+		$url = 'http://www.lacarbonara.ch/assets/tagesmenue.pdf';
+
+		$parser = new Parser();
+		try {
+			$pdf = $parser->parseFile($url);
+		} catch (\Exception $e) {
+			echo $e->getMessage();
+		}
+
+		$text = $pdf->getText();
+
+		$checkDate = date('d.m.Y');
+
+		if (strpos($text, $checkDate) > 0){
+			$data['datecheck'] = 'Datum stimmt: '.$checkDate;
+
+			$elements = explode('>>> ', $text);
+
+			$counter = 0;
+			foreach ($elements as $part){
+				if ($counter > 0){
+					$pos = strpos($part, '<');
+					$text1 = substr($part, 0, $pos-2);
+					$rest = substr($part, $pos+4, strlen($part)-1);
+					$pos = strpos($rest, 'Fr. ');
+					$text2 = substr($rest, 2, $pos-5);
+					$text3 = (float)substr($rest, $pos+4, $pos+5);
+					$text3 -= 3;
+
+					$m = [
+						'id' => $counter,
+						'name' => $text1,
+						'desc' => $text2,
+						'price' => $text3,
+						'date' => $checkDate,
+						'type' => 'menu'
+					];
+					try{
+						($menu->find($counter)) ? $menu->save($m) : $menu->insert($m);
+					} catch (ReflectionException $e){
+						echo $e->getMessage();
+					}
+				}
+				$counter++;
+			}
+		} else {
+			$data['datecheck'] = 'Datum '.$checkDate.' ergibt: '.strpos($text, $checkDate);
+		}
+	}
+
+
 }

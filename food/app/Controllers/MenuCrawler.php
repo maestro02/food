@@ -8,7 +8,7 @@ use Smalot\PdfParser\Parser;
 
 class MenuCrawler extends BaseController
 {
-	public function menu()
+	public function menu():void
 	{
 		$menu = new MenuModel();
 
@@ -23,7 +23,7 @@ class MenuCrawler extends BaseController
 
 		$text = $pdf->getText();
 
-		$checkDate = date('d.m.Y', strtotime("+2 day"));
+		$checkDate = date('d.m.Y');
 
 		if (strpos($text, $checkDate) > 0){
 			$data['datecheck'] = 'Datum stimmt: '.$checkDate;
@@ -63,6 +63,6 @@ class MenuCrawler extends BaseController
 
 		$data['menu'] = $menu->findAll();
 
-		return view('menuupdate', $data);
+		// return view('menuupdate', $data);
 	}
 }

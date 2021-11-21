@@ -35,6 +35,8 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'FoodController::index');
 $routes->post('bestellen', 'FoodController::index');
 $routes->add('menuupdate', 'MenuCrawler::menu');
+$routes->add('invite', 'OrderController::invite');
+$routes->add('order', 'OrderController::send_order_list');
 
 /*
  * --------------------------------------------------------------------
