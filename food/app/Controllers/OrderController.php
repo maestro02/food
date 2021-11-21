@@ -10,8 +10,6 @@ class OrderController extends BaseController
 {
 	public function invite():\CodeIgniter\HTTP\RedirectResponse
 	{
-		// ToDo: add people to personal table
-
 		$person = new PersonalModel();
 		$person = $person->asArray()->findAll();
 
@@ -34,15 +32,15 @@ class OrderController extends BaseController
 		$subject = 'Pizzaday! Gib deine Bestellung auf';
 		$header = 'From: mittag@food.maestro02.ch' . "\r\n";
 		$header .= 'Reply-To: raphael.suter@maestro02.ch' . "\r\n";
-		$header .= 'CC: raphael.suter@maestro02.ch' . "\r\n";
+		// $header .= 'CC: raphael.suter@maestro02.ch' . "\r\n";
 		$header .= 'Content-Type: text/html; charset=UTF-8' . "\r\n";
 		$header .= 'MIME-Version: 1.0' . "\r\n";
 
-		$body = '<html lang="de" ><body ><div >Hallo '.$first_name.'</div ><br ><div >
+		$body = '<html lang="de" ><body style="font-family: Arial,sans-serif; font-size: 16px; line-height:20px;line-height:30px"><div >Hallo '.$first_name.'</div ><br ><div >
 				Es ist Freitag und somit Zeit für Pizza.
 				Bitte gibt deine Bestellung über nachfolgenden Link bis spätestens 11:00 Uhr auf, damit der Dispatcher die Bestellung für dich aufgeben kann.</div >
 				<br >
-				<a href="https://food.maestro02.ch" class="btn btn-primary btn-lg" tabindex="-1" role="button" >Bestellung erfassen</a>
+				<button type="button"><a href="https://food.maestro02.ch" class="btn btn-primary btn-lg" tabindex="-1" role="button" >Bestellung erfassen</a></button>
 				<br >
 				<br ><div >Liebe Grüsse</div ><br ><div >Räfus Pizza-Bestell-Lösung</div ></body ></html >';
 
@@ -90,43 +88,43 @@ class OrderController extends BaseController
 		 * Mail
 		 * --------------------------------------------------------------------------
 		 */
-
-		// ToDo: Change To-Address to IT-Bern
-
-		$to = 'raphael.suter@maestro02.ch';
+		$to = 'it.bern@hirslanden.ch';
 		$subject = 'Bitte Pizzabestellung auslösen!';
 		$header = 'From: mittag@food.maestro02.ch' . "\r\n";
 		$header .= 'Reply-To: raphael.suter@maestro02.ch' . "\r\n";
-		$header .= 'CC: raphael.suter@maestro02.ch' . "\r\n";
+		// $header .= 'CC: raphael.suter@maestro02.ch' . "\r\n";
 		$header .= 'Content-Type: text/html; charset=UTF-8' . "\r\n";
 		$header .= 'MIME-Version: 1.0' . "\r\n";
 
-		// ToDo: Table design in E-Mail
-
-		$body = '<html lang="de" ><body ><div >Hallo Dispatcher</div ><br >
+		$body = '<html lang="de" ><body style="font-family: Arial,sans-serif; font-size: 16px; line-height:20px;line-height:30px"><div >Hallo Dispatcher</div ><br >
 				<div >Es ist 11 Uhr und Zeit die Bestellung aufzugeben.</div><br>
 				<dic>Nachfolgend findest du alle eingegangenen Bestellungen:</div><br>
-				<table >
-					<tr >
-						<th >Wer</th >
-						<th >Essen</th >
-						<th >Getränk</th >
-						<th >Preis</th >
-					</tr >';
+				<table width="100%" cellpadding="0" cellspacing="0" style="min-width:100%;" >
+					<thead>
+						<tr >
+							<th align="left" scope="col" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;line-height:30px">Wer</th >
+							<th align="left" scope="col" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;line-height:30px">Essen</th >
+							<th align="left" scope="col" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;line-height:30px">Getränk</th >
+							<th align="left" scope="col" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;line-height:30px">Preis</th >
+						</tr >
+					</thead>
+					<tbody>';
 		foreach ($order as $o){
-			$body .= '<tr >
-				<td >'.$o['name'].'</td >
-				<td >'.$o['food_name'].'</td >
-				<td >'.$o['drink_name'].'</td >
-				<td >Fr. '.number_format((float)$o['total_price'], 2, '.', '').'</td >
-			</tr >';
+			$body .= '	<tr >
+							<td align="left" valign="top" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;">'.$o['name'].'</td >
+							<td align="left" valign="top" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;">'.$o['food_name'].'</td >
+							<td align="left" valign="top" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;">'.$o['drink_name'].'</td >
+							<td align="left" valign="top" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;">Fr. '.number_format((float)$o['total_price'], 2, '.', '').'</td >
+						</tr >';
 		}
-		$body .= '</table ><br>
+		$body .= '	</tbody>
+				</table ><br>
 			Bitte löse die Bestellung im Restaurant La Carbonara über die Telefonnummer +41 31 332 14 40 (Für Jabber: +41313321440) aus.
 			<br ><br>
 			<div >Liebe Grüsse</div ><br >
 			<div >Räfus Pizza-Bestell-Lösung</div >
-			</body ></html >';
+			</body >
+		</html >';
 
 		mail($to, $subject, $body, $header);
 	}

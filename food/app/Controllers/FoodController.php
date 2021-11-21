@@ -69,22 +69,34 @@ class FoodController extends BaseController
 		$header .= 'Content-Type: text/html; charset=UTF-8' . "\r\n";
 		$header .= 'MIME-Version: 1.0' . "\r\n";
 
-		// ToDo: Table design in E-Mail
-
-		$body = '<html lang="de" ><body ><div >Hallo '.$person->first_name.'</div ><br ><div >
-				Deine Bestellung für '.date('d.m.Y').' ist erfolgreich gespeichert und wird dem Dispatcher via IT-Bern-Mail
-				gemeldet.</div >
-				<br ><div ><b >Folgendes hast du bestellt: </b ></div ><table ><tr ><th >was</th ><th >Preis</th ></tr >
-				<tr ><td >'.$food->foodname.'</td >
-				<td >Fr. '.number_format((float)$food->price, 2, '.', '').'</td ></tr >';
+		$body = '<html lang="de" ><body style="font-family: Arial,sans-serif; font-size: 16px; line-height:20px;line-height:30px"><div >Hallo '.$person->first_name.'</div ><br >
+				<div >Deine Bestellung für '.date('d.m.Y').' ist erfolgreich gespeichert und wird dem Dispatcher via IT-Bern-Mail gemeldet.</div ><br >
+				<div ><b >Folgendes hast du bestellt: </b ></div >
+				<table width="100%" cellpadding="0" cellspacing="0" style="min-width:100%;" >
+					<thead>
+						<tr >
+							<th align="left" scope="col" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;line-height:30px">was</th >
+							<th align="left" scope="col" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;line-height:30px">Preis</th >
+						</tr >
+					</thead>
+					<tbody>
+						<tr >
+							<td align="left" valign="top" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;">'.$food->foodname.'</td >
+							<td align="left" valign="top" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;">Fr. '.number_format((float)$food->price, 2, '.', '').'</td >
+						</tr >';
 		if ($drink) {
-			$body .= "<tr >
-					<td >".$drink->foodname."</td >
-					<td >Fr. ".number_format((float)$drink->price, 2, '.', '')."</td ></tr >";
+			$body .= '	<tr >
+							<td align="left" valign="top" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;">'.$drink->foodname.'</td >
+							<td align="left" valign="top" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;">Fr. '.number_format((float)$drink->price, 2, '.', '').'</td >
+						</tr >';
 		}
-		$body .= '<tr ><th >Total</th >
-				<th >Fr. '.number_format((float)$drink->price + $food->price, 2, '.', '').'</th >
-				</tr ></table ><br ><div >Liebe Grüsse und häb e Guete</div ><br ><div >Räfus Pizza-Bestell-Lösung</div ></body ></html >';
+		$body .= '		<tr >
+							<th align="left" valign="top" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;">Total</th >
+							<th align="left" valign="top" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;">Fr. '.number_format((float)$drink->price + $food->price, 2, '.', '').'</th >
+						</tr >
+					</tbody>
+				</table ><br >
+				<div >Liebe Grüsse und häb e Guete</div ><br ><div >Räfus Pizza-Bestell-Lösung</div ></body ></html >';
 
 		mail($to, $subject, $body, $header);
 
