@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<div>Diese Seite sollte nicht sichtbar sein und ist nur für Testzwecke vorhanden.</div><br>
-		<p><?= $datecheck ?></p><br>
+		<p>/** @noinspection ALL *//** @noinspection ALL */<?= $datecheck ?></p><br>
 		<p><?php echo var_dump($menu); ?></p>
 	</body>
 </html>

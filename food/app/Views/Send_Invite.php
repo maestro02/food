@@ -5,6 +5,7 @@
 	<body >
 		<h2 >Check invitation mail</h2 >
 		<p >Diese Seite sollte eigentlich niemand zu sehen bekommen. Ist lediglich für Tests da!</p ><br >
-		<div ><?= var_dump($p) ?></div >
+		<div ><?= /** @noinspection PhpUndefinedVariableInspection */
+			var_dump($p) ?></div >
 	</body >
 </html >
