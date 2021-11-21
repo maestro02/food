@@ -84,4 +84,8 @@ class Autoload extends AutoloadConfig
      * @var array<int, string>
      */
     public $files = [];
+
+
+	protected $helpers = ['form', 'url'];
+	protected $libraries = ['form_validation'];
 }

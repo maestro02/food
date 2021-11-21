@@ -23,7 +23,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $baseURL = 'https://food.maestro02.ch/index.php';
+    public $baseURL = 'https://food.maestro02.ch';
 
     /**
      * --------------------------------------------------------------------------
@@ -69,7 +69,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $defaultLocale;
+    public $defaultLocale = 'de';
 
     /**
      * --------------------------------------------------------------------------
@@ -83,7 +83,7 @@ class App extends BaseConfig
      *
      * @var bool
      */
-    public $negotiateLocale;
+    public $negotiateLocale = false;
 
     /**
      * --------------------------------------------------------------------------

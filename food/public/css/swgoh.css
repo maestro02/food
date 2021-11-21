@@ -1,0 +1,107 @@
+html {
+    position: relative;
+    min-height: 100%;
+    min-width: 100%;
+}
+
+.header {
+    margin-bottom: 60px;
+}
+
+.body {
+    padding: 0px 15px 0px 15px;
+    position: relative;
+}
+
+.price {
+    padding-left: 1em;
+}
+
+
+.filterValueButton {
+    margin: 5 5 5 0;
+
+}
+
+#myBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 60px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: #273138; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+}
+
+#myBtn:hover {
+    background-color: #555; /* Add a dark-grey background on hover */
+}
+
+.footer {
+    padding-top: 15px;
+    padding-left: 15px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 55px;
+    background-color: #f5f5f5;
+}
+
+.detailtable > thead:first-child > tr:first-child > th:first-child {
+    font-weight: bold;
+    height: 100%;
+}
+
+.detailtable > tbody > tr > td:first-child {
+    font-weight: bold;
+    height: 100%;
+}
+
+.detailtable > thead:first-child > tr:first-child > th:nth-child(2) {
+    padding-left: 40px;
+}
+
+.detailtable > tbody > tr > td:nth-child(2) {
+    padding-left: 5px !important;
+}
+
+.listtable > thead:first-child > tr:first-child > th:first-child {
+    position: absolute;
+    display: inline-block;
+    height: 100%;
+}
+
+.listtable > tbody > tr > td:first-child {
+    position: absolute;
+    display: inline-block;
+    height: 100%;
+}
+
+.listtable > thead:first-child > tr:first-child > th:nth-child(2) {
+    padding-left: 40px;
+}
+
+.listtable > tbody > tr > td:nth-child(2) {
+    padding-left: 50px !important;
+}
+
+.embed {
+    overflow: auto;
+}
+
+.char-list-name {
+    display: block;
+}
+
+.char-portrait-list-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: black;
+}
