@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "959453e38025bc93a4466fea35e17a2e",
+    "content-hash": "3a15adbdc61db6e134ed869e9b29a593",
     "packages": [
         {
             "name": "codeigniter4/framework",
@@ -383,57 +383,6 @@
         }
     ],
     "packages-dev": [
-        {
-            "name": "bfolliot/zf-nl2br",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/bfolliot/Zf-Nl2br.git",
-                "reference": "50f2ec8769d35a7ba4af0249c8c0bc97ef8874cf"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/bfolliot/Zf-Nl2br/zipball/50f2ec8769d35a7ba4af0249c8c0bc97ef8874cf",
-                "reference": "50f2ec8769d35a7ba4af0249c8c0bc97ef8874cf",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3."
-            },
-            "default-branch": true,
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "BFolliot\\ZfNl2br": "src/"
-                },
-                "classmap": [
-                    "./Module.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "Bryan Folliot",
-                    "email": "dev@bryanfolliot.fr"
-                }
-            ],
-            "description": "Provides a ZF2 filter for the php nl2br function",
-            "homepage": "https://github.com/BFolliot/Zf-Nl2br",
-            "keywords": [
-                "br",
-                "filter",
-                "html",
-                "new line",
-                "nl2br",
-                "zf2"
-            ],
-            "support": {
-                "issues": "https://github.com/bfolliot/Zf-Nl2br/issues",
-                "source": "https://github.com/bfolliot/Zf-Nl2br/tree/1.0.0"
-            },
-            "abandoned": true,
-            "time": "2015-04-12T15:58:16+00:00"
-        },
         {
             "name": "doctrine/instantiator",
             "version": "1.4.0",
@@ -3191,8 +3140,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "smalot/pdfparser": 20,
-        "roave/security-advisories": 20,
-        "bfolliot/zf-nl2br": 20
+        "roave/security-advisories": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
