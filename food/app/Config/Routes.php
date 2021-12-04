@@ -34,7 +34,7 @@ $routes->setAutoRoute(true);
 // $routes->get('/', 'Home::index', ['as' => 'home']);
 $routes->get('/', 'FoodController::index');
 $routes->post('bestellen', 'FoodController::index');
-$routes->add('menuupdate', 'MenuCrawler::menu');
+$routes->add('update', 'FoodController::getMenu');
 $routes->add('invite', 'OrderController::invite');
 $routes->add('order', 'OrderController::send_order_list');
 

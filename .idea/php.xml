@@ -47,6 +47,10 @@
       <path value="$PROJECT_DIR$/food/vendor/codeigniter4/framework" />
       <path value="$PROJECT_DIR$/food/vendor/phpdocumentor/reflection-common" />
       <path value="$PROJECT_DIR$/food/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/food/vendor/phpunit/php-token-stream" />
+      <path value="$PROJECT_DIR$/food/vendor/bfolliot/zf-nl2br" />
+      <path value="$PROJECT_DIR$/food/vendor/cpierce/pdf2text" />
+      <path value="$PROJECT_DIR$/food/vendor/codeigniter4/translations" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4">

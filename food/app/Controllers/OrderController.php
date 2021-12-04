@@ -38,7 +38,7 @@ class OrderController extends BaseController
 
 		$body = '<html lang="de" ><body style="font-family: Arial,sans-serif; font-size: 16px; line-height:20px;line-height:30px"><div >Hallo '.$first_name.'</div ><br ><div >
 				Es ist Freitag und somit Zeit für Pizza.
-				Bitte gibt deine Bestellung über nachfolgenden Link bis spätestens 11:00 Uhr auf, damit der Dispatcher die Bestellung für dich aufgeben kann.</div >
+				Bitte gibt deine Bestellung über nachfolgenden Link bis spätestens 10:00 Uhr auf, damit der Dispatcher die Bestellung für dich aufgeben kann.</div >
 				<br >
 				<button type="button"><a href="https://food.maestro02.ch" class="btn btn-primary btn-lg" tabindex="-1" role="button" >Bestellung erfassen</a></button>
 				<br >
@@ -65,11 +65,19 @@ class OrderController extends BaseController
 					$food_name = $menuList->asObject()->find($o->food)->foodname;
 				}
 
+                if ($o->drink){
+                    $drink_name = $menuList->asObject()->find($o->drink)->foodname;
+                    $total_price = $menuList->asObject()->find($o->food)->price+$menuList->asObject()->find($o->drink)->price;
+                } else {
+                    $drink_name = null;
+                    $total_price = $menuList->asObject()->find($o->food)->price;
+                }
+
 				$res = [
 					'name' => $personList->asObject()->find($o->person)->first_name,
 					'food_name' => $food_name,
-					'drink_name' => $menuList->asObject()->find($o->drink)->foodname,
-					'total_price' => $menuList->asObject()->find($o->food)->price+$menuList->asObject()->find($o->drink)->price
+					'drink_name' => $drink_name,
+					'total_price' => $total_price
 				];
 				$order[] = $res;
 			}
@@ -92,12 +100,12 @@ class OrderController extends BaseController
 		$subject = 'Bitte Pizzabestellung auslösen!';
 		$header = 'From: mittag@food.maestro02.ch' . "\r\n";
 		$header .= 'Reply-To: raphael.suter@maestro02.ch' . "\r\n";
-		// $header .= 'CC: raphael.suter@maestro02.ch' . "\r\n";
+		$header .= 'CC: raphael.suter@maestro02.ch' . "\r\n";
 		$header .= 'Content-Type: text/html; charset=UTF-8' . "\r\n";
 		$header .= 'MIME-Version: 1.0' . "\r\n";
 
 		$body = '<html lang="de" ><body style="font-family: Arial,sans-serif; font-size: 16px; line-height:20px;line-height:30px"><div >Hallo Dispatcher</div ><br >
-				<div >Es ist 11 Uhr und Zeit die Bestellung aufzugeben.</div><br>
+				<div >Es ist 10:00 Uhr und Zeit die Bestellung aufzugeben.</div><br>
 				<dic>Nachfolgend findest du alle eingegangenen Bestellungen:</div><br>
 				<table width="100%" cellpadding="0" cellspacing="0" style="min-width:100%;" >
 					<thead>
@@ -110,12 +118,15 @@ class OrderController extends BaseController
 					</thead>
 					<tbody>';
 		foreach ($order as $o){
-			$body .= '	<tr >
+		    if ($o['total_price']){
+		        $body .= '	<tr >
 							<td align="left" valign="top" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;">'.$o['name'].'</td >
 							<td align="left" valign="top" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;">'.$o['food_name'].'</td >
 							<td align="left" valign="top" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;">'.$o['drink_name'].'</td >
 							<td align="left" valign="top" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;">Fr. '.number_format((float)$o['total_price'], 2, '.', '').'</td >
 						</tr >';
+		    }
+			
 		}
 		$body .= '	</tbody>
 				</table ><br>

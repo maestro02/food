@@ -4,7 +4,6 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/food/app" isTestSource="false" packagePrefix="App\" />
       <sourceFolder url="file://$MODULE_DIR$/food/app/Config" isTestSource="false" packagePrefix="Config\" />
-      <sourceFolder url="file://$MODULE_DIR$/food/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/food/tests/_support" isTestSource="true" packagePrefix="Tests\Support\" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
@@ -53,6 +52,10 @@
       <excludeFolder url="file://$MODULE_DIR$/food/vendor/codeigniter4/framework" />
       <excludeFolder url="file://$MODULE_DIR$/food/vendor/phpdocumentor/reflection-common" />
       <excludeFolder url="file://$MODULE_DIR$/food/vendor/phpdocumentor/reflection-docblock" />
+      <excludeFolder url="file://$MODULE_DIR$/food/vendor/phpunit/php-token-stream" />
+      <excludeFolder url="file://$MODULE_DIR$/food/vendor/bfolliot/zf-nl2br" />
+      <excludeFolder url="file://$MODULE_DIR$/food/vendor/cpierce/pdf2text" />
+      <excludeFolder url="file://$MODULE_DIR$/food/vendor/codeigniter4/translations" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

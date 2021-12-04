@@ -12,7 +12,7 @@ class FoodController extends BaseController
 {
 	public function index():void
 	{
-		$this->getMenu();
+		$data['datecheck'] = $this->getMenu();
 
 		helper(['form', 'url']);
 		if ($this->request->getMethod() === 'post') {
@@ -90,9 +90,12 @@ class FoodController extends BaseController
 							<td align="left" valign="top" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;">Fr. '.number_format((float)$drink->price, 2, '.', '').'</td >
 						</tr >';
 		}
+		
+		($drink) ? ($totalprice = $drink->price + $food->price) : ($totalprice = $food->price);
+		
 		$body .= '		<tr >
 							<th align="left" valign="top" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;">Total</th >
-							<th align="left" valign="top" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;">Fr. '.number_format((float)$drink->price + $food->price, 2, '.', '').'</th >
+							<th align="left" valign="top" style="padding:5px; font-family: Arial,sans-serif; font-size: 16px; line-height:20px;">Fr. '.number_format((float)$totalprice, 2, '.', '').'</th >
 						</tr >
 					</tbody>
 				</table ><br >
@@ -104,7 +107,7 @@ class FoodController extends BaseController
 
 	}
 
-	private function getMenu():void
+	public function getMenu()
 	{
 		$menu = new MenuModel();
 
@@ -120,15 +123,19 @@ class FoodController extends BaseController
 		$text = $pdf->getText();
 
 		$checkDate = date('d.m.Y');
+		
+		//return $text;
+		return;
 
 		if (strpos($text, $checkDate) > 0){
-			$data['datecheck'] = 'Datum stimmt: '.$checkDate;
+			$datecheck = 'Datum stimmt: '.$checkDate;
 
 			$elements = explode('>>> ', $text);
 
 			$counter = 0;
 			foreach ($elements as $part){
-				if ($counter > 0){
+			    //while ($counter < 4){
+			       if ($counter > 0){
 					$pos = strpos($part, '<');
 					$text1 = substr($part, 0, $pos-2);
 					$rest = substr($part, $pos+4, strlen($part)-1);
@@ -146,16 +153,20 @@ class FoodController extends BaseController
 						'type' => 'menu'
 					];
 					try{
-						($menu->find($counter)) ? $menu->save($m) : $menu->insert($m);
+						$menu->save($m);
 					} catch (ReflectionException $e){
 						echo $e->getMessage();
 					}
-				}
-				$counter++;
+				//}
+				$counter++; 
+			    }
+				
 			}
 		} else {
-			$data['datecheck'] = 'Datum '.$checkDate.' ergibt: '.strpos($text, $checkDate);
+			$datecheck = 'Datum '.$checkDate.' ergibt: '.strpos($text, $checkDate);
 		}
+		
+		return $datecheck;
 	}
 
 
