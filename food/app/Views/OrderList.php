@@ -17,6 +17,8 @@
 	<h1>Pizzatag!</h1>
 	<div>Willkommen auf der Bestellseite der Hirslanden IT in Bern. Nachfolgend kannst du eine Pizza-Bestellung aufgeben. Der Dispatcher wird dann die Bestellung im La Carbonara für uns alle platzieren.</div>
 
+    <?= $datecheck; ?>
+
 	<?= form_open('bestellen') ?>
 		<div class="accordion" id="accordionExample" >
 			<div class="accordion-item" >
@@ -56,13 +58,13 @@
 								echo '<div class="custom-control custom-radio">
 							<input type="radio" class="custom-control-input" id="'.$p->id.'" name="food" value="'.$p->id.'">
 							<label class="custom-control-label" for="'.$p->id.'"><b>Menü '.$p->id.': '.$p->foodname.'</b><span 
-							class="price w3-right w3-tag w3-dark-grey w3-round">Fr. '.number_format((float)$p->price, 2,
+							class="price w3-right w3-tag w3-dark-grey w3-round" style="padding-left:5px;">Fr. '.number_format((float)$p->price, 2,
 										'.', '').'</span><p class="w3-text-grey" 
 							>'.$p->details.'</p ></label ></div>';
 							}
 						}
 						?>
-						<p ><a href="http://www.lacarbonara.ch/assets/tagesmenue.pdf" target="_blank" >Link zum
+						<p ><a href="http://www.lacarbonara.ch/assets/tagesmenue.pdf" >Link zum
 								Originaldokument</a ></p >
 					</div >
 				</div >
@@ -83,7 +85,7 @@
 								echo '<div class="custom-control custom-radio">
 							<input type="radio" class="custom-control-input" id="'.$p->id.'" name="food" value="'.$p->id.'">
 							<label class="custom-control-label" for="'.$p->id.'"><b>'.$p->foodname.'</b><span 
-							class="price w3-right w3-tag w3-dark-grey w3-round">Fr. '.number_format((float)$p->price, 2,
+							class="price w3-right w3-tag w3-dark-grey w3-round" style="padding-left:5px;">Fr. '.number_format((float)$p->price, 2,
 										'.', '').'</span><p class="w3-text-grey" 
 							>'.$p->details.'</p ></label ></div>';
 							}
@@ -108,7 +110,7 @@
 								echo '<div class="custom-control custom-radio">
 							<input type="radio" class="custom-control-input" id="'.$p->id.'" name="drink" value="'.$p->id.'">
 							<label class="custom-control-label" for="'.$p->id.'"><b>'.$p->foodname.'</b><span 
-							class="price w3-right w3-tag w3-dark-grey w3-round">Fr. '.number_format((float)$p->price, 2,
+							class="price w3-right w3-tag w3-dark-grey w3-round" style="padding-left:5px;">Fr. '.number_format((float)$p->price, 2,
 										'.', '').'</span></label ></div>';
 							}
 						}
